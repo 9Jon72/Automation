@@ -36,8 +36,9 @@ function setnetwork{
     $interfaces[$InterfaceIndex] | Set-NetworkAdapter -networkName $network -confirm:$false
 }
 
-function getIP {
-    
+function getIP([string] $vmName) {
+    $vm = get-vm -name $vmName
+    write-host $vm.guest.IPAddress[0] hostname.$vm.Name
 }
 
 
@@ -46,7 +47,13 @@ $c=funconnect($Global:configFile.vcenter_server)
 if($c){
     #this will be where we can run the fucntions to create a virtual network. 
     #createSwitch -switchName "BLUE1-LAN" -esxihostname "super9.cyber.local"
-    setNetwork -vmName "fw-blue1" -InterfaceIndex 1 -Network "BLUE1-LAN"
+    #setNetwork -vmName "fw-blue1" -InterfaceIndex 1 -Network "BLUE1-LAN"
+    #Runs through all the powered on VMS and prints the ip address on net adapter 0
+    foreach($vm in get-vm){
+        if($vm.PowerState -eq "PoweredOn"){
+            getIP($vm.name)
+        }
+    }
 }else{
     write-host "Invalid connection"
 }
