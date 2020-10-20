@@ -1,0 +1,9 @@
+{
+    "vcenter_server" : "vcenter.jon.local",
+    "esxi_server" : "super9.cyber.local",
+    "base_folder" : "BASE-VMS",
+    "preferred_network" : "480-WAN",
+    "preferred_datastore" : "datastore2-super9",
+    "domain" : "jon.local"
+
+}
