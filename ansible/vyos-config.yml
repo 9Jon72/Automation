@@ -1,0 +1,12 @@
+---
+# This playbook configures a blue team vyos router/firwall
+- name: vyos
+  hosts: vyos
+  tasks:
+    - name: load from jinja template
+      template:
+        src: files/vyos/config.sh.j2
+        dest: /tmp/config.sh
+        mode: u+rwx
+    - name: run the script
+      shell: nohup /tmp/config.sh &>/tmp/out.txt &

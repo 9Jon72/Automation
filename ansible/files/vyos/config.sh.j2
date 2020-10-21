@@ -1,0 +1,21 @@
+#!/bin/vbash
+source /opt/vyatta/etc/functions/script-template
+configure
+set interfaces ethernet eth1 address "{{ lan_ip }}/24"
+set nat source rule 10 outbound-interface 'eth0'
+set nat source rule 10 soruce address "{{ lan }}"
+set nat source rule 10 translation address 'masquerade'
+set protocols static route 0.0.0.0/0 next-hop " {{ gateway }}"
+set service dns forwarding allow-from "{{ lan }}"
+set service dns forwarding listen-address "{{ lan_ip}}"
+set service dns forwarding name-server "{{ name_server }}"
+set service dns forwarding system
+set service ssh listen-address '0.0.0.0'
+set system host-name "{{ hostname }}"
+set system name-server "{{ name_server }}"
+delete interfaces ethernet eth0 address 'dhcp'
+set interfaces ethernet eth0 address "{{ wan_ip }}/24"
+commit
+save
+run reboot now
+

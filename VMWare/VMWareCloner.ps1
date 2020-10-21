@@ -1,3 +1,5 @@
+#calls the utlity function
+. ./VMWareUtility.ps1
 ##Injects json file that will be used for the varibales
 $configFilePath = "cloner.json"
 if(test-path $configFilePath){
@@ -30,16 +32,7 @@ $global:folder=$null
 $global:askBaseFolder=$null
 $global:wrong="Cmon you know thats not a valid input, use your eyes"
 
-#Engine functions
-#Function for connecting to the vecnter instnace.
-function funconnect($vserver){
-    if($vserver){
-        $askVcenter = $vserver
-    }else{
-        $askVcenter = read-host -prompt "What is the vcenter hostname or IP address"
-    }
-    Connect-VIServer -Server $askVcenter
-}
+
 
 #this function selects the base folder that the vms are in.
     
@@ -171,8 +164,9 @@ function funlink(){
     $newvm = New-VM -Name "$name.linked" -VM $global:basevm -LinkedClone `
     -ReferenceSnapshot $global:snap -VMHost $global:vmhost -Datastore $global:dstore `
     -Location $global:folder
-    get-vm "$name.linked" | get-NetworkAdapter | Set-NetworkAdapter `
-    -NetworkName $Global:configFile.preferred_network
+    #get-vm "$name.linked" | get-NetworkAdapter | Set-NetworkAdapter `
+    #-NetworkName $Global:configFile.preferred_network
+    setNetwork -vmName "$name.linked" -Network $Global:configFile.preferred_network
     
 }
 #This function runs through the commands to 
@@ -195,18 +189,18 @@ function funfinish(){
     if ($asklink -eq "L"){
         funlink
     }elseif($asklink -eq "F"){
-        funfull-networkname 
+        funfull 
     }else{
         write-host "Not an option please try again"
         funfinish
     }
 }
 
-#all the functions running
+<#all the functions running
 if($Global:configFile.vcenter_server){
     funconnect($Global:configFile.vcenter_server)
 }else{funconnect}
-
+#>
 funfinish
 
 

@@ -33,7 +33,11 @@ function setnetwork{
     )
     $vm = get-vm -name $vmName 
     $interfaces = $vm | get-NetworkAdapter
-    $interfaces[$InterfaceIndex] | Set-NetworkAdapter -networkName $network -confirm:$false
+    if($InterfaceIndex){
+        $interfaces[$InterfaceIndex] | Set-NetworkAdapter -networkName $network -confirm:$false
+    }else{
+        $interfaces | Set-NetworkAdapter -networkName $network -confirm:$false
+    }
 }
 
 function getIP([string] $vmName) {
@@ -49,46 +53,12 @@ if($c){
     #createSwitch -switchName "BLUE1-LAN" -esxihostname "super9.cyber.local"
     #setNetwork -vmName "fw-blue1" -InterfaceIndex 1 -Network "BLUE1-LAN"
     #Runs through all the powered on VMS and prints the ip address on net adapter 0
+    <#
     foreach($vm in get-vm){
         if($vm.PowerState -eq "PoweredOn"){
             getIP($vm.name)
         }
-    }
+    }#>
 }else{
     write-host "Invalid connection"
 }
-<#
-function funswitch(){
-    
-    $askswitch = read-host -Prompt "What would you like to call your switch"
-    #error handling
-    
-    $global:switch = $askswitch
-    return $global:switch
-}
-#captures where to put the virtual host
-function funesxi(){
-    $storeesxi = Get-VMHost
-    showlist($storeesxi)
-    $askesxi = read-host -Prompt "Please pick the number corresponding to you esxi server"
-    #error handling
-    if(funisnum($askesxi[0])){
-        write-host $global:wrong
-        $askesxi=$null
-        funesxi
-    }
-    if([int]$askesxi -gt [int]$storeesxi.length){
-        write-host $global:wrong
-        $askesxi=$null
-        funesxi
-    }
-    $global:esxi = Get-VMHost -Name $storeesxi[$askesxi-1]
-    return $esxi
-}
-#Creates a virtual host
-funswitch
-funesxi
-#$global:virtualS = New-VirtualSwitch -vmhost $global:esxi -name $global:switch
-
-
-#New-VirtualPortGroup -VirtualSwitch $global:virtualS -name $global:switch#>
