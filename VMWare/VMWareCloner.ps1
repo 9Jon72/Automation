@@ -179,8 +179,7 @@ function funfull(){
     $newvm = New-VM -Name $name -VM $global:basevm `
     -VMHost $global:vmhost -Datastore $global:dstore -Location $global:folder
 
-    get-vm $name | get-NetworkAdapter | Set-NetworkAdapter `
-    -NetworkName $Global:configFile.preferred_network
+    setNetwork -vmName $name -Network $Global:configFile.preferred_network
 }
 #Creates the VM asking the user for a name and if they want a linked or Full clone. 
 function funfinish(){
