@@ -49,7 +49,8 @@ function getIP([string] $vmName) {
     $a = get-vm -name $vmName
     foreach($vm in $a){
             $vmObject = get-vm -name $vm.name
-            write-host $vmObject.guest.IPAddress[0] $vmObject.name
+            $vmObjectName = $vmObject.name
+            write-host $vmObject.guest.IPAddress[0] "hostname=$vmObjectName"
     }
 }
 

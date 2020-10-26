@@ -1,0 +1,31 @@
+---
+#This playbook adds the deployer public key to linux machines
+# the .ssh dir should already exist and should b set to the appropoate permisisons. 
+- name: push key
+  hosts: centos_server
+  tasks:
+    - name: create the .ssh dir if it is not there
+      file:
+        path: /home/deployer/.ssh
+        state: directory
+        mode: 0700
+    - name: create authorized_key file
+      file:
+        path: /home/deployer/.ssh/authorized_keys
+        state: touch
+        mode: 0644
+    - name: copy over key block an append to authorized_keys
+      blockinfile:
+        dest: /home/ddepoyer/.ssh/authorized_keys
+        block: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDll/m+Tf51yywFI0Jvt5Pv9p1GgulwOCXijx8R/ZCirlq4VSWcDPmrsqxrvhayQKA1M7eIQhTsMpy2MpQHpDcKUKh9FyNwG3clhWBZq6tqaL2tgnQzAPc1oCVlrVFq/umvJTicLhlJwFXI23/1dR/UCub45FLHD+NSh7cclM2sQAeyq/eYD+oFP+ELzw+9jGpPgVuQhRBwDXPYoid2IYG+fFL09zcmmmrvuqz2LIznaD/rsrnB4OTYfzMYEZiKSF0OgPfvqjgG/NwKWjcI7jjIgFJRMSKcB27cjOQ/YlhObbm3GraLLwQyMeUCiNIhPQOe8AvRa0zS1EJCxGeGad3MMkm9zUFjIANvU+CaTz87bDPeFdjRmsGXsqn7R1UZC/V8NYn/1MDE0wstsYvkyJxPLQ/XuY8ZIokUOPMHEPZR+A6Jno7b4abNYD1I8elMlmHFeL0lntYk0YvR4m8Js6LVu7Nz5jQKwtPsHBoHAyqwk54ls0rHjazrhoq/xGzNj78= jhanyok@xubuntu-wan
+    - name: create sudoers dropin file for 480
+      file:
+        path: /etc/sudoers.d/480
+        state: touch
+        mode: 0440
+      become: yes
+    - name: create deployer entry in /etc/sudoers.d/480
+      blockinfile:
+        dest: /etc/sudoers.d/480
+        block: "deployer ALL=(ALL) NOPASSWD: ALL"
+      become: yes

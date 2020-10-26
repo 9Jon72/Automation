@@ -7,7 +7,7 @@ set nat source rule 10 source address "{{ lan }}"
 set nat source rule 10 translation address 'masquerade'
 set protocols static route 0.0.0.0/0 next-hop " {{ gateway }}"
 set service dns forwarding allow-from "{{ lan }}"
-set service dns forwarding listen-address "{{ lan_ip}}"
+set service dns forwarding listen-address "{{ lan_ip }}"
 set service dns forwarding name-server "{{ name_server }}"
 set service dns forwarding system
 set service ssh listen-address '0.0.0.0'
