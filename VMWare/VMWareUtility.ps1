@@ -13,8 +13,12 @@ function funconnect($vserver){
     }else{
         $askVcenter = read-host -prompt "What is the vcenter hostname or IP address"
     }
-    Connect-VIServer -Server $askVcenter
+    write-host "Auto logging in"
+    Connect-VIServer -Server $askVcenter -user $Global:configFile.username `
+    -password $Global:configFile.password
 }
+
+
 
 #creates a new virutla switch based on inputed data
 function createSwitch{
@@ -34,17 +38,45 @@ function setnetwork{
     $vm = get-vm -name $vmName 
     $interfaces = $vm | get-NetworkAdapter
     if($InterfaceIndex){
-        $interfaces[$InterfaceIndex] | Set-NetworkAdapter -networkName $network -confirm:$false
+        $interfaces[$InterfaceIndex] | Set-NetworkAdapter -networkName $network `
+        -confirm:$false
     }else{
         $interfaces | Set-NetworkAdapter -networkName $network -confirm:$false
     }
 }
 
 function getIP([string] $vmName) {
-    $vm = get-vm -name $vmName
-    write-host $vm.guest.IPAddress[0] hostname.$vm.Name
+    $a = get-vm -name $vmName
+    foreach($vm in $a){
+            $vmObject = get-vm -name $vm.name
+            write-host $vmObject.guest.IPAddress[0] $vmObject.name
+    }
 }
 
+#function used to create a VM
+function createvm{
+    param(
+        $cloneType, $sourceVM, $VMName
+    )
+    write-host "Make sure the config file specified at the top of Utility function right"
+    $basevm = get-vm -name $sourceVM
+    $snapshot = Get-Snapshot -VM $basevm -name $Global:configFile.snapshot
+    $vmhost = get-vmhost -name $Global:configFile.esxi_server
+    $dstore = get-Datastore -name $Global:configFile.preferred_datastore
+    $folder = get-folder -name $Global:configFile.preferred_folder
+    if($cloneType -eq "F"){
+        $newvm = new-vm -name $VMName -vm $basevm -VMhost $vmhost -datastore $dstore -location `
+        $folder
+    }elseif($cloneType -eq "L"){
+        $newvm = new-vm -name $VMName -vm $basevm -LinkedClone -ReferenceSnapshot $snapshot -VMhost $vmhost -datastore $dstore -location `
+        $folder
+    }else{
+        write-host "please enter a correct linked type"
+    }
+    sleep 5
+    setNetwork -vmName $VMName -Network $Global:configFile.preferred_network
+    start-vm -vm $VMName
+}
 
 $c=funconnect($Global:configFile.vcenter_server)
 #tests connectivity to continue.

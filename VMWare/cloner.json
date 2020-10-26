@@ -2,8 +2,12 @@
     "vcenter_server" : "vcenter.jon.local",
     "esxi_server" : "super9.cyber.local",
     "base_folder" : "BASE-VMS",
-    "preferred_network" : "480-WAN",
+    "snapshot" : "Base",
+    "preferred_network" : "BLUE9-LAN",
     "preferred_datastore" : "datastore2-super9",
-    "domain" : "jon.local"
+    "preferred_folder" : "BLUE",
+    "domain" : "jon.local",
+    "username" : "jon-adm",
+    "password" : "Password123"
 
 }

@@ -3,7 +3,7 @@ source /opt/vyatta/etc/functions/script-template
 configure
 set interfaces ethernet eth1 address "{{ lan_ip }}/24"
 set nat source rule 10 outbound-interface 'eth0'
-set nat source rule 10 soruce address "{{ lan }}"
+set nat source rule 10 source address "{{ lan }}"
 set nat source rule 10 translation address 'masquerade'
 set protocols static route 0.0.0.0/0 next-hop " {{ gateway }}"
 set service dns forwarding allow-from "{{ lan }}"
