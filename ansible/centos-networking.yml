@@ -16,4 +16,16 @@
 
   - name: push over the networking script
     template:
-      srrc: files/centos/ifcfg-script.
+      src: files/centos/ifcfg-script.j2
+      dest: '/etc/sysconfig/network-scripts/ifcfg-{{device}}'
+      mode: 0644
+      owner: root
+      group: root
+      force: yes
+    become: yes
+
+  - name: restart networking
+    shell: "sleep 5 && reboot"
+    become: yes
+    async: 1
+    poll: 0
