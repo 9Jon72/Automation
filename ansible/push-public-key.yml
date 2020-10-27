@@ -16,8 +16,9 @@
         mode: 0644
     - name: copy over key block an append to authorized_keys
       blockinfile:
-        dest: /home/ddepoyer/.ssh/authorized_keys
-        block: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDll/m+Tf51yywFI0Jvt5Pv9p1GgulwOCXijx8R/ZCirlq4VSWcDPmrsqxrvhayQKA1M7eIQhTsMpy2MpQHpDcKUKh9FyNwG3clhWBZq6tqaL2tgnQzAPc1oCVlrVFq/umvJTicLhlJwFXI23/1dR/UCub45FLHD+NSh7cclM2sQAeyq/eYD+oFP+ELzw+9jGpPgVuQhRBwDXPYoid2IYG+fFL09zcmmmrvuqz2LIznaD/rsrnB4OTYfzMYEZiKSF0OgPfvqjgG/NwKWjcI7jjIgFJRMSKcB27cjOQ/YlhObbm3GraLLwQyMeUCiNIhPQOe8AvRa0zS1EJCxGeGad3MMkm9zUFjIANvU+CaTz87bDPeFdjRmsGXsqn7R1UZC/V8NYn/1MDE0wstsYvkyJxPLQ/XuY8ZIokUOPMHEPZR+A6Jno7b4abNYD1I8elMlmHFeL0lntYk0YvR4m8Js6LVu7Nz5jQKwtPsHBoHAyqwk54ls0rHjazrhoq/xGzNj78= jhanyok@xubuntu-wan
+        dest: /home/deployer/.ssh/authorized_keys
+        block: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCthAP0rg2dICTrDkaVLNlDEO95XIXrBvEDuzqN2SBoPezGU/1Kg/OAex1r6kvzBkwprdwe0dJaJZmrv2NRC8s0WZy8xsyh6rHMzakut8qPM9Itggv0qwwZpX9drmmVLRfEjeuVYhDvDEgElS6HQFgZjcEMcDd/zTJ1Rt+Jv+oJPSqPL9CQphSGgoFwub7fhFuS7liYega2gE+rXiRFsd1pe5Dww6iGHTS+rSzKIAZKCGRFSZAh9GMEei2EaywRpUIPHjuCA6AC/mnjFcnz8mBWGuU6dP8gYUwe6zo1dO4CaQpWoXhDsDJo3Ov+bckhhbfZM2JMFtPr2yX1edfB6UFl/z60xMpuuwsfPoejHMGYgpagyYLyz3/Vvk1Rsk2EHRC3HMrpyrnD0iXXeQG1L42M6JeiEKQ0T21b+nvUJjX4/DZUctE8jjdxZ9vi3l3zsTelj0o7dzfMD1iu5lWPwviTJHYa6XKrftIeIVp7xtotMgbCcKJ8X9WS9MWkQqb6zPs= jhanyok@xubuntu-wan
+
     - name: create sudoers dropin file for 480
       file:
         path: /etc/sudoers.d/480

@@ -175,7 +175,7 @@ function funfull(){
     funbase
     funhost
     fundstore
-    funfoldelseif($asklink -eq {er
+    funfolder
     $newvm = New-VM -Name $name -VM $global:basevm `
     -VMHost $global:vmhost -Datastore $global:dstore -Location $global:folder
 

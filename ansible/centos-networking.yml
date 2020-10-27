@@ -1,0 +1,19 @@
+---
+# this playbook configues blueteam centos netowkring
+- name: centos-networking
+  hosts: centos_server
+  tasks:
+  - name: set the hostname
+    hostname:
+      name: "{{hostname}}"
+    become: yes
+  
+  - name: add host to hosts file
+    lineinfile:
+      path: /etc/hosts
+      line: '127.0.1.1 {{hostname}}'
+    become: yes
+
+  - name: push over the networking script
+    template:
+      srrc: files/centos/ifcfg-script.
