@@ -1,0 +1,11 @@
+network:
+  version: 2
+  ethernets:
+    dhcp4: false
+    {{ device }}:
+      addresses: [{{ lan_ip }}/{{ prefix }}]
+      gateway4: {{ gateway }}
+      nameservers:
+        search: [{{ domain }}]
+        addresses: [{{ name_server }}]
+        

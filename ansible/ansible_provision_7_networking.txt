@@ -3,14 +3,21 @@
 10.0.17.101 hostname=fw-blue9 wan_ip=10.0.17.200 lan_ip=10.0.5.2 lan=10.0.5.0/24 name_server=10.0.17.4 gateway=10.0.17.2
 
 [centos_server]
-10.0.5.75 hostname=centos-1-test lan_ip=10.0.5.11
-10.0.5.76 hostname=centos-2-test lan_ip=10.0.5.12
-10.0.5.77 hostname=centos-3-test lan_ip=10.0.5.13
+10.0.5.87 hostname=centos-1 lan_ip=10.0.5.11
+10.0.5.88 hostname=centos-2 lan_ip=10.0.5.12
+10.0.5.89 hostname=centos-3 lan_ip=10.0.5.13
+
+[ubuntu_server]
+10.0.5.91 hostname=ubuntu-2 lan_ip=10.0.5.22
+10.0.5.90 hostname=ubuntu-1 lan_ip=10.0.5.21
 
 [centos_server:vars]
 device=ens192
+[ubuntu_server:vars]
+device=ens160
 [linux_server:children]
 centos_server
+ubuntu_server
 
 [linux_server:vars]
 gateway=10.0.5.2
@@ -18,6 +25,7 @@ prefix=24
 name_server=10.0.5.2
 domain=jon.local
 ansible_user=deployer
+
 
 [vyos:vars]
 ansible_python_interpreter="/usr/bin/python3"

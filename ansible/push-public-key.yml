@@ -2,7 +2,7 @@
 #This playbook adds the deployer public key to linux machines
 # the .ssh dir should already exist and should b set to the appropoate permisisons. 
 - name: push key
-  hosts: centos_server
+  hosts: linux_server
   tasks:
     - name: create the .ssh dir if it is not there
       file:
