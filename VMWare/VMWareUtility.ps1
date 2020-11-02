@@ -76,7 +76,15 @@ function createvm{
     }
     sleep 5
     setNetwork -vmName $VMName -Network $Global:configFile.preferred_network
-    start-vm -vm $VMName
+    #start-vm -vm $VMName
+}
+
+function getmac {
+    param(
+        $vmname
+    )
+    $vm = get-vm -name $vmname | Get-NetworkAdapter
+    write-host $vm.macaddress 
 }
 
 $c=funconnect($Global:configFile.vcenter_server)

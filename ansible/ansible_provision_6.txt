@@ -3,13 +3,15 @@
 10.0.17.101 hostname=fw-blue9 wan_ip=10.0.17.200 lan_ip=10.0.5.2 lan=10.0.5.0/24 name_server=10.0.17.4 gateway=10.0.17.2
 
 [centos_server]
-10.0.5.89 hostname=centos-3
-10.0.5.88 hostname=centos-2
-10.0.5.87 hostname=centos-1
+10.0.5.114 hostname=centos-3
+10.0.5.113 hostname=centos-2
+10.0.5.112 hostname=centos-1
+
 
 [ubuntu_server]
-10.0.5.91 hostname=ubuntu-2
-10.0.5.90 hostname=ubuntu-1
+10.0.5.116 hostname=ubuntu-2
+10.0.5.115 hostname=ubuntu-1
+
 
 [centos_server:vars]
 device=ens192

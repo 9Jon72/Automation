@@ -1,8 +1,8 @@
 network:
   version: 2
   ethernets:
-    dhcp4: false
     {{ device }}:
+      dhcp4: no
       addresses: [{{ lan_ip }}/{{ prefix }}]
       gateway4: {{ gateway }}
       nameservers:

@@ -25,7 +25,7 @@
     become: yes
 
   - name: restart networking
-    shell: "sleep 5 && reboot"
+    shell: "sleep 10 && reboot"
     become: yes
     async: 1
     poll: 0

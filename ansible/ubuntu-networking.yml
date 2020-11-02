@@ -25,7 +25,7 @@
     become: yes
 
   - name: restart networking
-    shell: "sleep 5 && netplan apply && sleep 5 && reboot"
+    shell: "sleep 5 && sudo netplan apply && sleep 5 && reboot"
     become: yes
     async: 1
     poll: 0
