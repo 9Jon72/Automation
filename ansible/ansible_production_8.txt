@@ -1,0 +1,49 @@
+[vyos]
+10.0.17.200
+
+[centos_server]
+10.0.5.11 hostname=centos-1 
+10.0.5.12 hostname=centos-2 
+10.0.5.13 hostname=centos-3 
+
+
+[centos_server:vars]
+device=ens192
+
+[windows_workstation]
+[windows:children]
+windows_server
+windows_workstation
+
+[windows:vars]
+ansible_shell_type=powershell
+device=Ethernet0
+
+
+[server:children]
+centos_server
+windows_server
+
+[windows_server:children]
+domain_controller
+
+[domain_controller]
+10.0.5.5 hostname=dc-blue9
+
+
+[server:vars]
+gateway=10.0.5.2
+prefix=24
+name_server=10.0.5.2
+domain=jon.local
+ansible_user=deployer
+
+
+[vyos:vars]
+ansible_user=vyos
+ansible_python_interpreter="/usr/bin/python3"
+ansible_connection=network_cli
+ansible_network_os=vyos
+shared_network_name="BLUE9"
+dhcp_subnet="10.0.5.0/24"
+static_map_name="dc-blue9"

@@ -2,7 +2,7 @@
 #This playbook adds the deployer public key to linux machines
 # the .ssh dir should already exist and should b set to the appropoate permisisons. 
 - name: push key
-  hosts: linux_server
+  hosts: centos_server
   tasks:
     - name: create the .ssh dir if it is not there
       file:
@@ -17,7 +17,7 @@
     - name: copy over key block an append to authorized_keys
       blockinfile:
         dest: /home/deployer/.ssh/authorized_keys
-        block: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCthAP0rg2dICTrDkaVLNlDEO95XIXrBvEDuzqN2SBoPezGU/1Kg/OAex1r6kvzBkwprdwe0dJaJZmrv2NRC8s0WZy8xsyh6rHMzakut8qPM9Itggv0qwwZpX9drmmVLRfEjeuVYhDvDEgElS6HQFgZjcEMcDd/zTJ1Rt+Jv+oJPSqPL9CQphSGgoFwub7fhFuS7liYega2gE+rXiRFsd1pe5Dww6iGHTS+rSzKIAZKCGRFSZAh9GMEei2EaywRpUIPHjuCA6AC/mnjFcnz8mBWGuU6dP8gYUwe6zo1dO4CaQpWoXhDsDJo3Ov+bckhhbfZM2JMFtPr2yX1edfB6UFl/z60xMpuuwsfPoejHMGYgpagyYLyz3/Vvk1Rsk2EHRC3HMrpyrnD0iXXeQG1L42M6JeiEKQ0T21b+nvUJjX4/DZUctE8jjdxZ9vi3l3zsTelj0o7dzfMD1iu5lWPwviTJHYa6XKrftIeIVp7xtotMgbCcKJ8X9WS9MWkQqb6zPs= jhanyok@xubuntu-wan
+        block: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDvSJq+rZs0Tb82HmEE1UOCn0eYcB2g2rjvMLZeFaPKL2/JzH6Eea5gNIGkzs0qHPMrDnEZPKz1i7HAHdzB/Ng2ov+KYyXzeP2NK7KrXA3JyMUGKnJhh1ppm1Ll7jBeVGtxn6oWPnnYvtW8WW+MwTbEvo7PKvJqMgg1fBUJKsG8QDoddOsCKvgdCrf9I2JC+qOeQ2nUp9b13ETHjbjw1mZhaVAaMcT9OIF6CoNR4Qg6O/RCNfPlF3gS/Y1FXHvP2DX8YDMkhAf16pSQ2YN6F05AuXSULujoeqgUK9BZq9T9WegmTrARzsHzqIMvPWu8n36edjmkMmOAfwW8afNcg35EsW1OyHcUo3cb+236B/4dvPj0ansV/StieL5YiTQSDOlA41OlvbtTysONCJoczIrRhTiaYoOr/WITm2Jcmq5C+tbmtcV3oVKYwdR56TmXbsPOtJP6IyYryjQrbleXqPIqjGP3fhHFmJh3I0EctuEeytoGS1S+CHznXFPOw6H5+/k= jhanyok@xubuntu-wan
 
     - name: create sudoers dropin file for 480
       file:

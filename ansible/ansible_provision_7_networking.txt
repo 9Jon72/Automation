@@ -3,9 +3,9 @@
 10.0.17.101 hostname=fw-blue9 wan_ip=10.0.17.200 lan_ip=10.0.5.2 lan=10.0.5.0/24 name_server=10.0.17.4 gateway=10.0.17.2
 
 [centos_server]
-10.0.5.112 hostname=centos-1 lan_ip=10.0.5.11
-10.0.5.113 hostname=centos-2 lan_ip=10.0.5.12
-10.0.5.114 hostname=centos-3 lan_ip=10.0.5.13
+10.0.5.118 hostname=centos-1 lan_ip=10.0.5.11
+10.0.5.119 hostname=centos-2 lan_ip=10.0.5.12
+10.0.5.120 hostname=centos-3 lan_ip=10.0.5.13
 
 [ubuntu_server]
 10.0.5.116 hostname=ubuntu-2 lan_ip=10.0.5.22

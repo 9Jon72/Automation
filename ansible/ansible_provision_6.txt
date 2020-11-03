@@ -5,7 +5,7 @@
 [centos_server]
 10.0.5.114 hostname=centos-3
 10.0.5.113 hostname=centos-2
-10.0.5.112 hostname=centos-1
+10.0.5.118 hostname=centos-1
 
 
 [ubuntu_server]
