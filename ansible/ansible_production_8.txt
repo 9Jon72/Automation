@@ -18,6 +18,7 @@ windows_workstation
 [windows:vars]
 ansible_shell_type=powershell
 device=Ethernet0
+admin_user=administrator
 
 
 [server:children]
@@ -34,8 +35,9 @@ domain_controller
 [server:vars]
 gateway=10.0.5.2
 prefix=24
+netmask=255.255.255.0
 name_server=10.0.5.2
-domain=jon.local
+domain=blue9.local
 ansible_user=deployer
 
 
