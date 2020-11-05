@@ -27,10 +27,13 @@ windows_server
 
 [windows_server:children]
 domain_controller
+vanhalen
 
 [domain_controller]
 10.0.5.5 hostname=dc-blue9
 
+[vanhalen]
+10.0.5.6 hostname=vanhalen
 
 [server:vars]
 gateway=10.0.5.2
@@ -39,7 +42,7 @@ netmask=255.255.255.0
 name_server=10.0.5.2
 domain=blue9.local
 ansible_user=deployer
-
+dns=10.0.5.5
 
 [vyos:vars]
 ansible_user=vyos
@@ -48,4 +51,4 @@ ansible_connection=network_cli
 ansible_network_os=vyos
 shared_network_name="BLUE9"
 dhcp_subnet="10.0.5.0/24"
-static_map_name="dc-blue9"
+#static_map_name="dc-blue9"

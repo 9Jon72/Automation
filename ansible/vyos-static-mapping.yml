@@ -9,12 +9,12 @@
     - name: mapped_mac
       prompt: What is the hosts mac address
       private: no
-    - name: static_name
+    - name: static_map_name
       prompt: What is the name of your machine
       private: no
   tasks: 
     - name: show configuratio on ehternet devices eth0 and eth1
       vyos_config: 
         lines:
-        - "set service dhcp-server shared-network-name {{static_name}} subnet {{dhcp_subnet}} static-mapping {{static_map_name}} ip-address {{ mapped_ip }}"
-        - "set service dhcp-server shared-network-name {{static_name}} subnet {{dhcp_subnet}} static-mapping {{static_map_name}} mac-address {{ mapped_mac }}"
+        - "set service dhcp-server shared-network-name {{shared_network_name}} subnet {{dhcp_subnet}} static-mapping {{static_map_name}} ip-address {{ mapped_ip }}"
+        - "set service dhcp-server shared-network-name {{shared_network_name}} subnet {{dhcp_subnet}} static-mapping {{static_map_name}} mac-address {{ mapped_mac }}"

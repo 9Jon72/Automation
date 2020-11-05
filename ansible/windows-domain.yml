@@ -6,16 +6,6 @@
   - name: adminpassword
     prompt: "What will be the safe mode password?"
     private: yes
-  vars:
-    ansible_user: "{{ admin_user }}"
-  #- name: adminpassword
-   # prompt: "What is the Administrator password"
-    #private: yes
-  
-  #  become: yes
-   # become_user: administrator
-   # become_password: "{{ adminpassword }}"
-   # become_method: runas
 
   tasks:
     - name: Create new forest
@@ -44,3 +34,4 @@
     - name: DNS config
       win_shell: |
          Add-DnsServerForwarder -IPAddress "{{ gateway }}" -PassThru
+   

@@ -1,7 +1,7 @@
 ---
 # This playbook configures blueteam windows static entwokring for DC
 - name: windows-networking
-  hosts: domain_controller
+  hosts: vanhalen
   gather_facts: no
   vars_prompt:
   - name: adminpassword

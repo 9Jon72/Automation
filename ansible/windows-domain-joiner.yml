@@ -1,0 +1,34 @@
+---
+# This playbook configures OU on an AD
+- name: windows-domain-joiner
+  hosts: vanhalen
+  gather_facts: no
+  vars_prompt:
+  - name: admin_name
+    prompt: "What is the domain admin account that you will use"
+    private: no
+  - name: admin_pass
+    prompt: What is the password for this domain admin account?
+    private: yes
+  
+  tasks:
+  - name: set the dns server to dc-blue9(10.0.5.5)
+    win_dns_client:
+      adapter_names: "*"
+      ipv4_addresses: "{{ dns }}"
+  - name: join the blue9 domain
+    win_domain_membership:
+      dns_domain_name: "{{ domain }}"
+      domain_admin_user: "{{admin_name}}" 
+      domain_admin_password: "{{admin_pass}}"
+      domain_ou_path: "OU=Servers,OU=Computers,OU=blue9,DC=blue9,DC=local"
+      state: domain
+    register: domain_state
+  
+  - name: reboot after joining domain
+    when: domain_state.reboot_required
+    win_reboot:
+      connect_timeout: 15
+      post_reboot_delay: 15
+      reboot_timeout: 200
+      msg: "Server config in proecss: rebooting...."
