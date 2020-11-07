@@ -1,0 +1,23 @@
+---
+- name: windows-software
+  hosts: windows_workstation
+
+  tasks:
+    - name: Install packages
+      win_chocolatey:
+        name: 
+        - 7zip
+        - googlechrome
+        - vscode
+        - putty
+        - git
+        - sysinternals
+        state: present
+    
+    - name: reboot after installing packages
+      win_reboot:
+        connect_timeout: 15
+        post_reboot_delay: 15
+        reboot_timeout: 200
+        msg: "Server config in proecss: rebooting...."
+

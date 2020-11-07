@@ -1,15 +1,24 @@
-- name: join the blue9 domain
-    win_domain_membership:
-      dns_domain_name: "{{ domain }}"
-      domain_admin_user: "{{ admin_name}} "
-      domain_admin_password: "{{ admin_pass }}"
-      state: domain
-    register: domain_state
-  
-  - name: reboot after joining domain
-    when: domain_state.reboot_required
-    win_reboot:
-      connect_timeout: 15
-      post_reboot_delay: 15
-      reboot_timeout: 200
-      msg: "Server config in proecss: rebooting...."
+- name: Install chrome
+      win_chocolatey:
+        name: googlechrome
+
+    - name: Install visual studio
+      win_chocolatey:
+        name: vscode
+
+    - name: Install putty
+      win_chocolatey:
+        name: putty
+   
+    - name: Install python 3
+      win_chocolatey:
+        name: python3
+     
+    - name: Install Git
+      win_chocolatey:
+        name: git
+      
+    - name: Install sysinternals
+      win_chocolatey:
+        name: sysinternals
+        

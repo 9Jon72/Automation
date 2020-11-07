@@ -1,0 +1,11 @@
+---
+# This playbook set rdp on a windows machine. 
+- name: windows-rdp
+  hosts: windows_workstation
+  gather_facts: no
+
+  tasks:
+  - name: enable RDP and set firewall
+    win_shell: |
+      set-itemproperty -path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+      Enable-NetFirewallRule -DisplayGroup "Remote Desktop"

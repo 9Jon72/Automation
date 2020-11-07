@@ -1,0 +1,10 @@
+---
+# This playbook set the power mode on windows machines
+- name: windows-power
+  hosts: windows_workstation
+  gather_facts: no
+
+  tasks:
+  - name: set powermode
+    win_power_plan:
+      name: high performance

@@ -11,6 +11,10 @@
 device=ens192
 
 [windows_workstation]
+10.0.5.79 hostname=workstation-1
+10.0.5.78 hostname=workstation-2
+
+  
 [windows:children]
 windows_server
 windows_workstation
@@ -24,6 +28,7 @@ admin_user=administrator
 [server:children]
 centos_server
 windows_server
+windows
 
 [windows_server:children]
 domain_controller
@@ -34,6 +39,11 @@ vanhalen
 
 [vanhalen]
 10.0.5.6 hostname=vanhalen
+
+[windows_workstation:vars]
+location="OU=Workstations,OU=Computers,OU=blue9,DC=blue9,DC=local"
+[windows_server:vars]
+location=OU=Servers,OU=Computers,OU=blue9,DC=blue9,DC=local
 
 [server:vars]
 gateway=10.0.5.2

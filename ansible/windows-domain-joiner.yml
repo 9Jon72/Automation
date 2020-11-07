@@ -1,7 +1,7 @@
 ---
 # This playbook configures OU on an AD
 - name: windows-domain-joiner
-  hosts: vanhalen
+  hosts: windows_workstation
   gather_facts: no
   vars_prompt:
   - name: admin_name
@@ -19,9 +19,10 @@
   - name: join the blue9 domain
     win_domain_membership:
       dns_domain_name: "{{ domain }}"
+      hostname: "{{ hostname }}"
       domain_admin_user: "{{admin_name}}" 
       domain_admin_password: "{{admin_pass}}"
-      domain_ou_path: "OU=Servers,OU=Computers,OU=blue9,DC=blue9,DC=local"
+      domain_ou_path: "{{ location }}"
       state: domain
     register: domain_state
   
