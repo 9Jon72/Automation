@@ -30,14 +30,10 @@
       name: "{{ admin }}"
       password: "{{ adminPass }}"
       state: present
-      path: "{{ domain_admin_location }}"
+      path: "{{ domain_user_location }}"
       groups:
         - Domain Admins
       password_never_expires: yes
 
 
-      community.windows.win_domain_groups:
-        name: "{{ item.groups }}"
-        scope: domainlocal
-        category: security 
-        organizational_unit: "{{ domain_group_location }}"
+      

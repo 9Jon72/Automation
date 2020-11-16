@@ -9,7 +9,7 @@ echo "password,username,group"
 
 while read username group
 do
-    pw=$(pwgen -Bcny -r ",\"'|<>:;+=*" 12 1)
+    pw=$(pwgen -Bcny -r "{}[]()#,\"'|<>:;+=*" 12 1)
     echo "$pw",$username,$group
     # ship that first line
 done < $INPUT | awk 'NR>1'

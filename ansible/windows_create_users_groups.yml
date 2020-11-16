@@ -3,19 +3,50 @@
 # user to those groups.
 - name: windows_create_users_groups
   hosts: domain_controller
-  
+  vars_prompt:
+  - name: admin
+    prompt: name of the new domain admin
+    private: no
+  - name: adminPass
+    prompt: Password for new domain admin
+    private: yes
+    
 
   
-  tasks:  
+  tasks:
+  - name: add new domain admin
+    win_domain_user:
+      name: "{{ admin }}"
+      password: "{{ adminPass }}"
+      state: present
+      path: "{{ domain_user_location }}"
+      groups:
+        - Domain Admins
+      password_never_expires: yes 
+    
   - name: read the group csv file
     read_csv:
-      path: "{{ sec_groups_loc }}"
+      path: "{{ sec_groups_csv_loc }}"
     register: items
     delegate_to: localhost
-  
   - name: creates security groups
     win_shell: |
       New-ADGroup -Name "{{ item.groups }}" -GroupCategory Security -GroupScope DomainLocal -Path "{{ domain_group_location }}"
+    with_items: "{{ items.list }}"
+
+  - name: read the users csv
+    read_csv:
+      path: "{{ users_csv_loc }}"
+    register: items
+    delegate_to: localhost
+  - name: create all the users
+    win_domain_user:
+      name: "{{ item.username }}"
+      password: "{{ item.password }}"
+      state: present
+      path: "{{ domain_user_location }}"
+      groups:
+        - "{{ item.group }}"
     with_items: "{{ items.list }}"
     
   

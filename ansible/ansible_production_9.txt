@@ -45,9 +45,10 @@ location="OU=Workstations,OU=Computers,OU=blue9,DC=blue9,DC=local"
 
 [windows_server:vars]
 location=OU=Servers,OU=Computers,OU=blue9,DC=blue9,DC=local
-domain_admin_location=OU=Accounts,OU=blue9,DC=blue9,DC=local
+domain_user_location=OU=Accounts,OU=blue9,DC=blue9,DC=local
 domain_group_location=OU=Groups,OU=Accounts,OU=blue9,DC=blue9,DC=local
-sec_groups_loc="files/windows/domain-sec-groups.csv"
+sec_groups_csv_loc="files/windows/domain-sec-groups.csv"
+users_csv_loc="files/windows/user-with-PASSWORDS.csv"
 
 [server:vars]
 gateway=10.0.5.2
