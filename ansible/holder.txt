@@ -1,24 +1,43 @@
-- name: Install chrome
-      win_chocolatey:
-        name: googlechrome
+- name: read the groups csv file
+    read_csv:
+      path: "{{ groups }}"
+    register:  items
+    delegate_to: localhost
+  
+  - name: an ansible loop
+    debug:
+      win_shell: |
+      "{{ item.username }} - {{ item.group }}"
+    with_items: "{{ items.list }}"
+  
+  - name: groups
+    prompt: Enter the path to groups csv file
+    private: no
+    - name: users
+    prompt: Enter the path to users csv file
+    private: no  
 
-    - name: Install visual studio
-      win_chocolatey:
-        name: vscode
 
-    - name: Install putty
-      win_chocolatey:
-        name: putty
-   
-    - name: Install python 3
-      win_chocolatey:
-        name: python3
-     
-    - name: Install Git
-      win_chocolatey:
-        name: git
-      
-    - name: Install sysinternals
-      win_chocolatey:
-        name: sysinternals
-        
+  - name: admin
+    prompt: name of the new domain admin
+    private: no
+  - name: adminPass
+    prompt: Password for new domain admin
+    private: yes
+    tasks:
+  - name: add new domain admin
+    win_domain_user:
+      name: "{{ admin }}"
+      password: "{{ adminPass }}"
+      state: present
+      path: "{{ domain_admin_location }}"
+      groups:
+        - Domain Admins
+      password_never_expires: yes
+
+
+      community.windows.win_domain_groups:
+        name: "{{ item.groups }}"
+        scope: domainlocal
+        category: security 
+        organizational_unit: "{{ domain_group_location }}"

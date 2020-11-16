@@ -1,0 +1,23 @@
+---
+# This creates a domain admin user and a list of sec groups and domain 
+# user to those groups.
+- name: windows_create_users_groups
+  hosts: domain_controller
+  
+
+  
+  tasks:  
+  - name: read the group csv file
+    read_csv:
+      path: "{{ sec_groups_loc }}"
+    register: items
+    delegate_to: localhost
+  
+  - name: creates security groups
+    win_shell: |
+      New-ADGroup -Name "{{ item.groups }}" -GroupCategory Security -GroupScope DomainLocal -Path "{{ domain_group_location }}"
+    with_items: "{{ items.list }}"
+    
+  
+  
+    

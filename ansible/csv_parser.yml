@@ -1,0 +1,20 @@
+---
+# this playbook shows how to parse a csv file
+- name: parsecsv
+  hosts: domain_controller
+  vars_prompt:
+  - name: path
+    prompt: Enter the path to your csv file
+    private: no
+  tasks:
+  - name: read csv file
+    read_csv:
+      path: "{{ path }}"
+    register:  items
+    delegate_to: localhost
+  
+  - name: an ansible loop
+    debug:
+      msf: "{{ item.username }} - {{ item.group }}"
+    with_items: "{{ items.list }}"
+    
