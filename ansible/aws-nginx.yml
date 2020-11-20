@@ -1,13 +1,15 @@
 ---
 # this playbook sets up a nginx server on aws instance
-- name: centos-networking
-  hosts: centos_server
+- name: aws-nginx
+  hosts: aws_instance
   tasks:
   - name: install nginx and make sure it is the latest version
     apt:
       name: nginx
       state: present
+    become: true
   - name: start nginx
     service:
       name: nginx
       state: started
+    become: true
