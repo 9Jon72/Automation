@@ -1,0 +1,18 @@
+version: '3'
+services:
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx1
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: /home/jon/bind-mount
+
+
+  networks:
+    app-network:
+      driver: bridge  
